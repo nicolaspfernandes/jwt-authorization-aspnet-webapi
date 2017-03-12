@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JwtWebApiAuthorization.Token", "JwtWebApiAuthorization.Token\JwtWebApiAuthorization.Token.csproj", "{405AE1E8-2A0F-4CB4-9FB6-7197E15C5FC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JwtWebApiAuthorization", "JwtWebApiAuthorization\JwtWebApiAuthorization.csproj", "{7F874479-9BFE-44BD-BD75-C8D5FE7DE487}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JwtWebApiAuthorization.Testing", "JwtWebApiAuthorization.Testing\JwtWebApiAuthorization.Testing.csproj", "{92DAE363-FD1B-4978-8334-600AE8803E5F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{405AE1E8-2A0F-4CB4-9FB6-7197E15C5FC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{405AE1E8-2A0F-4CB4-9FB6-7197E15C5FC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{405AE1E8-2A0F-4CB4-9FB6-7197E15C5FC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{405AE1E8-2A0F-4CB4-9FB6-7197E15C5FC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F874479-9BFE-44BD-BD75-C8D5FE7DE487}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F874479-9BFE-44BD-BD75-C8D5FE7DE487}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F874479-9BFE-44BD-BD75-C8D5FE7DE487}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F874479-9BFE-44BD-BD75-C8D5FE7DE487}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92DAE363-FD1B-4978-8334-600AE8803E5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92DAE363-FD1B-4978-8334-600AE8803E5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92DAE363-FD1B-4978-8334-600AE8803E5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92DAE363-FD1B-4978-8334-600AE8803E5F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

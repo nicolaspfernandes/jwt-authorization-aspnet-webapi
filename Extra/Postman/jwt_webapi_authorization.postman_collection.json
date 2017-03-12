@@ -1,0 +1,639 @@
+{
+	"variables": [],
+	"info": {
+		"name": "JWT Web Api Authorization",
+		"_postman_id": "d5a762b5-0782-a0e4-a02b-daae3c6aa695",
+		"description": "Simple .NET WebApi Authorization project in order to show how to use JWT .NET implementation to control permission flows.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Token for Anonymous User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var response = JSON.parse(responseBody);",
+							"tests[\"Token for anonymous user successfully created?\"] = response.StatusCode === 200;",
+							"",
+							"if (response.StatusCode === 200) {",
+							"    postman.setEnvironmentVariable(\"authorizationToken\", response.Data);",
+							"}"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"postman.setEnvironmentVariable(\"roleId\", 1);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:11111/tokens/{{roleId}}",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"role\": 1\n}"
+				},
+				"description": "POST request to generate a new authorization JWT token for anonymous users."
+			},
+			"response": []
+		},
+		{
+			"name": "Access Anonymous Request with Anonymous User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Access Anonymous Request With Anonymous User?\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:11111/requests/anonymous",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{authorizationToken}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Deny Common Request with Anonymous User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Access Common Request With Anonymous User?\"] = (responseCode.code === 401 || responseCode.code === 403);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:11111/requests/common",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{authorizationToken}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Deny Superuser Request with Anonymous User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Access Superuser Request With Anonymous User?\"] = (responseCode.code === 401 || responseCode.code === 403);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:11111/requests/superuser",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{authorizationToken}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Deny Administrator Request with Anonymous User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Access Administrator Request With Anonymous User?\"] = (responseCode.code === 401 || responseCode.code === 403);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:11111/requests/administrator",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{authorizationToken}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Token for Common User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var response = JSON.parse(responseBody);",
+							"tests[\"Token for common user successfully created?\"] = response.StatusCode === 200;",
+							"",
+							"if (response.StatusCode === 200) {",
+							"    postman.setEnvironmentVariable(\"authorizationToken\", response.Data);",
+							"}"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"postman.setEnvironmentVariable(\"roleId\", 2);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:11111/tokens/{{roleId}}",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"role\": 1\n}"
+				},
+				"description": "POST request to generate a new authorization JWT token for common users."
+			},
+			"response": []
+		},
+		{
+			"name": "Access Anonymous Request with Common User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Access Common Request With Common User?\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:11111/requests/anonymous",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{authorizationToken}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Access Common Request with Common User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Access Common Request With Common User?\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:11111/requests/common",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{authorizationToken}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Deny Superuser Request with Common User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Access Superuser Request With Common User?\"] = (responseCode.code === 401 || responseCode.code === 403);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:11111/requests/superuser",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{authorizationToken}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Deny Administrator Request with Common User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Deny Administrator Request With Common User?\"] = (responseCode.code === 401 || responseCode.code === 403);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:11111/requests/administrator",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{authorizationToken}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Token for Superuser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var response = JSON.parse(responseBody);",
+							"tests[\"Token for superuser successfully created?\"] = response.StatusCode === 200;",
+							"",
+							"if (response.StatusCode === 200) {",
+							"    postman.setEnvironmentVariable(\"authorizationToken\", response.Data);",
+							"}"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"postman.setEnvironmentVariable(\"roleId\", 3);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:11111/tokens/{{roleId}}",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"role\": 1\n}"
+				},
+				"description": "POST request to generate a new authorization JWT token for superusers."
+			},
+			"response": []
+		},
+		{
+			"name": "Access Anonymous Request with Superuser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Access Anonymous Request With Superuser?\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:11111/requests/anonymous",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{authorizationToken}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Access Common Request with Superuser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Access Common Request With Superuser?\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:11111/requests/common",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{authorizationToken}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Access Superuser Request with Superuser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Access Superuser Request With Superuser?\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:11111/requests/superuser",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{authorizationToken}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Deny Administrator Request with Superuser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Deny Administrator Request With Common User?\"] = (responseCode.code === 401 || responseCode.code === 403);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:11111/requests/administrator",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{authorizationToken}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Token for Administrator",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var response = JSON.parse(responseBody);",
+							"tests[\"Token for administrator successfully created?\"] = response.StatusCode === 200;",
+							"",
+							"if (response.StatusCode === 200) {",
+							"    postman.setEnvironmentVariable(\"authorizationToken\", response.Data);",
+							"}"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"postman.setEnvironmentVariable(\"roleId\", 4);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:11111/tokens/{{roleId}}",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"role\": 1\n}"
+				},
+				"description": "POST request to generate a new authorization JWT token for administrators."
+			},
+			"response": []
+		},
+		{
+			"name": "Access Anonymous Request with Administrator",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Access Anonymous Request With Administrator?\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:11111/requests/anonymous",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{authorizationToken}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Access Common Request with Administrator",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Access Common Request With Administrator?\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:11111/requests/common",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{authorizationToken}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Access Superuser Request with Administrator",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Access Superuser Request With Administrator?\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:11111/requests/superuser",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{authorizationToken}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Access Administrator Request with Administrator",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Access Administrator Request With Administrator?\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:11111/requests/administrator",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{authorizationToken}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
